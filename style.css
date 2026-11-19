@@ -1,0 +1,333 @@
+/* =========================================================
+   style.css - Khám phá Việt Nam
+   Dùng chung cho index.html, hanoi.html, danang.html
+   ========================================================= */
+
+/* ===== 1. BIẾN MÀU & RESET ===== */
+:root {
+    --ink: #1d2b2f;        /* màu chữ chính */
+    --paper: #f4f7f5;      /* màu nền trang */
+    --card: #ffffff;       /* nền khối nội dung */
+    --teal: #0b5563;       /* màu chủ đạo */
+    --teal-dark: #083b45;  /* header, footer */
+    --saffron: #e9a23b;    /* màu nhấn (menu active, marker) */
+    --line: #d5e0dc;       /* màu viền */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;   /* width gồm cả padding + border */
+}
+
+html {
+    scroll-behavior: smooth;  /* click link #id thì cuộn mượt */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}
+
+[id] {
+    scroll-margin-top: 80px;  /* chừa chỗ cho header dính khi cuộn tới #id */
+}
+
+/* ===== 2. BODY & CHỮ ===== */
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--paper);
+
+    /* Footer luôn nằm dưới đáy, kể cả khi trang ngắn */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    line-height: 1.25;
+}
+
+h2 {
+    margin: 0 0 12px;
+    font-size: 1.4rem;
+    color: var(--teal-dark);
+}
+
+a {
+    color: var(--teal);
+}
+
+a:hover {
+    color: var(--teal-dark);
+}
+
+:focus-visible {
+    outline: 3px solid var(--teal);
+    outline-offset: 2px;
+}
+
+/* ===== 3. HEADER + MENU ===== */
+.site-header {
+    background: var(--teal-dark);
+    position: sticky;         /* dính trên cùng khi cuộn */
+    top: 0;
+    z-index: 10;
+}
+
+.menu {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.menu ul {
+    list-style: none;         /* bỏ dấu chấm đầu dòng */
+    margin: 0;
+    padding: 0;
+    display: flex;            /* các mục menu nằm ngang */
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.menu a {
+    display: block;
+    padding: 14px 16px;
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.menu a:hover {
+    border-bottom-color: var(--saffron);
+    color: #ffffff;
+}
+
+/* Trang hiện tại */
+.menu a[aria-current="page"] {
+    color: var(--saffron);
+    border-bottom-color: var(--saffron);
+}
+
+.menu a:focus-visible {
+    outline-color: var(--saffron);
+}
+
+/* Mục cuối (Google) đẩy sang phải */
+.menu li:last-child {
+    margin-left: auto;
+}
+
+/* ===== 4. HERO (tiêu đề trang) ===== */
+.hero {
+    background: var(--teal);
+    color: #ffffff;
+}
+
+.hero h1 {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);  /* tự co giãn theo màn hình */
+}
+
+/* ===== 5. BỐ CỤC CHÍNH ===== */
+.container {
+    width: 100%;
+    max-width: 960px;         /* giới hạn bề rộng nội dung */
+    margin: 0 auto;           /* căn giữa */
+    padding: 32px 20px;
+    flex: 1;                  /* chiếm phần còn lại, đẩy footer xuống */
+}
+
+.block {
+    margin-bottom: 36px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px 24px;
+}
+
+.card h2 {
+    margin-top: 0;
+    font-size: 1.15rem;
+}
+
+/* Lưới 2 cột, tự xuống 1 cột khi màn hình hẹp */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 36px;
+}
+
+/* ===== 6. LINK CUỘN TRONG TRANG (Miền Bắc | Trung | Nam) ===== */
+.anchor-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.anchor-nav a {
+    padding: 6px 16px;
+    border: 1px solid var(--teal);
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.anchor-nav a:hover {
+    background: var(--teal);
+    color: #ffffff;
+}
+
+/* ===== 7. DANH SÁCH ===== */
+ul, ol {
+    margin: 0;
+    padding-left: 1.3rem;
+}
+
+li {
+    margin: 4px 0;
+}
+
+li::marker {
+    color: var(--saffron);
+    font-weight: 700;
+}
+
+ol li::marker {
+    color: var(--teal);
+}
+
+/* Danh sách lồng nhau: 3 miền */
+.regions {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.regions > li {
+    margin: 0;
+}
+
+.region-name {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--teal-dark);
+}
+
+/* Khi click "Miền ..." ở trên, khối tương ứng được viền nổi bật */
+.regions > li:target {
+    border-color: var(--saffron);
+    box-shadow: 0 0 0 2px var(--saffron);
+}
+
+/* ===== 8. HÌNH ẢNH ===== */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.gallery a {
+    display: block;
+}
+
+.gallery img,
+.photo {
+    display: block;
+    aspect-ratio: 4 / 3;      /* mọi ảnh cùng tỉ lệ cho đều */
+    object-fit: cover;
+    border-radius: 8px;
+    background: #dbe5e1;      /* màu nền khi ảnh chưa tải */
+}
+
+.gallery a img {
+    transition: transform 0.2s;
+}
+
+.gallery a:hover img {
+    transform: scale(1.03);
+}
+
+/* ===== 9. TRANG CHI TIẾT (hanoi.html, danang.html) ===== */
+.detail {
+    display: grid;
+    grid-template-columns: 1fr 300px;   /* chữ bên trái, ảnh bên phải */
+    gap: 32px;
+    align-items: start;
+}
+
+.detail-back {
+    grid-column: 1 / -1;                /* chiếm trọn hàng dưới cùng */
+    margin: 0;
+}
+
+.lead {
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 18px;
+    background: var(--teal);
+    color: #ffffff;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background: var(--teal-dark);
+    color: #ffffff;
+}
+
+.back-link {
+    font-weight: 600;
+}
+
+/* ===== 10. FOOTER ===== */
+.site-footer {
+    background: var(--teal-dark);
+    color: #cfe0e0;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+}
+
+.site-footer p {
+    margin: 0;
+}
+
+/* ===== 11. RESPONSIVE (màn hình <= 700px) ===== */
+@media (max-width: 700px) {
+    .detail {
+        grid-template-columns: 1fr;     /* 1 cột */
+    }
+
+    .menu li:last-child {
+        margin-left: 0;
+    }
+}
